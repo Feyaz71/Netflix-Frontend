@@ -1,16 +1,199 @@
-@import url('variables.css');
-@import url('reset.css');
-@import url('navbar.css');
-@import url('hero.css');
-@import url('carousel.css');
-@import url('responsive.css');
+/* ==========================================================================
+   1. GLOBAL VARIABLES (variables.css)
+   ========================================================================== */
+:root {
+    --color-primary: #e50914;
+    --color-background: #141414;
+    --color-text-main: #ffffff;
+    --color-text-muted: #808080;
+    --color-nav-bg: #141414;
+    --color-btn-dark: rgba(109, 109, 110, 0.7);
+    --color-btn-dark-hover: rgba(109, 109, 110, 0.4);
+    --color-btn-light: #ffffff;
+    --color-btn-light-hover: rgba(255, 255, 255, 0.75);
 
-/* Base layout spacers if any global application constraints are needed */
-.main-content {
-    position: relative;
-    z-index: var(--z-index-base);
-    background-color: var(--color-background);
-    /* Push content upward slightly to cover potential empty gaps below hero templates */
-    margin-top: 0;
-    padding-bottom: 50px;
+    --font-family-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --global-padding-inline: 4%;
+    --navbar-height: 68px;
+    
+    --transition-fast: 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+    --transition-normal: 0.3s ease;
+    --carousel-transition: transform 0.5s cubic-bezier(0.45, 0, 0.15, 1);
+    
+    --z-index-base: 1;
+    --z-index-carousel-card: 10;
+    --z-index-carousel-controls: 20;
+    --z-index-navbar: 100;
 }
+
+/* ==========================================================================
+   2. BROWSER RESET (reset.css)
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background-color: var(--color-background);
+    color: var(--color-text-main);
+    font-family: var(--font-family-sans);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+ul, ol { list-style: none; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* ==========================================================================
+   3. NAVIGATION BAR (navbar.css)
+   ========================================================================== */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--navbar-height);
+    z-index: var(--z-index-navbar);
+    background-image: linear-gradient(to bottom, rgba(0,0,0,0.7) 10%, rgba(0,0,0,0));
+    transition: background-color var(--transition-normal);
+}
+
+.header--scrolled {
+    background-color: var(--color-nav-bg) !important;
+    background-image: none !important;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0 var(--global-padding-inline);
+}
+
+.navbar__left, .navbar__right { display: flex; align-items: center; }
+.navbar__logo { height: 25px; margin-right: 25px; object-fit: contain; }
+.navbar__links { display: flex; gap: 20px; }
+.navbar__link { font-size: 0.85rem; color: #e5e5e5; transition: color var(--transition-fast); }
+.navbar__link:hover, .navbar__link--active { color: var(--color-text-main); }
+.navbar__right { gap: 20px; }
+.navbar__icon { width: 24px; height: 24px; fill: var(--color-text-main); }
+.navbar__icon-btn { display: flex; align-items: center; }
+.navbar__user-text { font-size: 0.85rem; }
+.navbar__profile { display: flex; align-items: center; gap: 5px; cursor: pointer; }
+.navbar__avatar { width: 32px; height: 32px; border-radius: 4px; }
+.navbar__caret {
+    width: 0; height: 0;
+    border-left: 5px solid transparent; border-right: 5px solid transparent;
+    border-top: 5px solid var(--color-text-main);
+}
+
+/* ==========================================================================
+   4. HERO BANNER (hero.css)
+   ========================================================================== */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 75vh;
+    min-height: 400px;
+    background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920');
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--global-padding-inline);
+}
+
+.hero__overlay--gradient {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 60%, var(--color-background) 100%),
+                linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 60%);
+    pointer-events: none;
+}
+
+.hero__content { position: relative; z-index: 2; max-width: 45%; display: flex; flex-direction: column; gap: 1rem; }
+.hero__title { font-size: clamp(2rem, 4vw, 4rem); font-weight: 800; line-height: 1.1; }
+.hero__description { font-size: clamp(0.9rem, 1.1vw, 1.1rem); line-height: 1.4; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+.hero__actions { display: flex; gap: 1rem; }
+.hero__btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.5rem; font-size: 1rem; font-weight: 700; border-radius: 4px; }
+.hero__btn-icon { width: 20px; height: 20px; }
+.hero__btn--play { background-color: var(--color-btn-light); color: #000000; }
+.hero__btn--play .hero__btn-icon { fill: #000000; }
+.hero__btn--info { background-color: var(--color-btn-dark); color: var(--color-text-main); }
+.hero__btn--info .hero__btn-icon { fill: var(--color-text-main); }
+
+/* ==========================================================================
+   5. CAROUSELS & MOVIE CARDS (carousel.css)
+   ========================================================================== */
+.main-content { position: relative; z-index: var(--z-index-base); background-color: var(--color-background); padding-bottom: 50px; }
+.carousel-row { position: relative; margin: 2vw 0; padding: 0 var(--global-padding-inline); overflow: visible; }
+.carousel-row__title { font-size: clamp(1rem, 1.3vw, 1.3rem); font-weight: 700; margin-bottom: 0.5em; }
+.carousel-row__wrapper { position: relative; display: flex; align-items: center; overflow: visible; }
+
+.carousel-row__track { display: flex; gap: 8px; width: 100%; overflow-x: scroll; scroll-behavior: smooth; scrollbar-width: none; padding: 15px 0; }
+.carousel-row__track::-webkit-scrollbar { display: none; }
+.carousel-row__track--dragging { scroll-behavior: auto !important; cursor: grabbing; }
+
+.movie-card {
+    position: relative;
+    flex: 0 0 calc((100% - (5 * 8px)) / 6);
+    aspect-ratio: 16 / 9;
+    background-color: #181818;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    transform-origin: center center;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    z-index: var(--z-index-base);
+}
+
+.movie-card__image { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.movie-card__metadata {
+    position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px;
+    background: linear-gradient(to top, rgba(20,20,20,1), rgba(20,20,20,0));
+    opacity: 0; transform: translateY(5px); transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.carousel-row__track:not(.carousel-row__track--dragging) .movie-card:hover {
+    transform: scale(1.15); z-index: var(--z-index-carousel-card); box-shadow: 0 10px 20px rgba(0,0,0,0.6); transition-delay: 0.1s;
+}
+.carousel-row__track:not(.carousel-row__track--dragging) .movie-card:hover .movie-card__metadata {
+    opacity: 1; transform: translateY(0); transition-delay: 0.1s;
+}
+.movie-card:first-child { transform-origin: left center; }
+.movie-card:last-child { transform-origin: right center; }
+
+.carousel-row__btn {
+    position: absolute; top: 15px; bottom: 15px; width: 4%; background-color: rgba(0,0,0,0.5);
+    z-index: var(--z-index-carousel-controls); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity var(--transition-fast);
+}
+.carousel-row__wrapper:hover .carousel-row__btn { opacity: 1; }
+.carousel-row__btn svg { width: 2vw; fill: currentColor; }
+.carousel-row__btn--left { left: calc(var(--global-padding-inline) * -1); border-radius: 0 4px 4px 0; }
+.carousel-row__btn--right { right: calc(var(--global-padding-inline) * -1); border-radius: 4px 0 0 4px; }
+
+/* ==========================================================================
+   6. FOOTER STYLING
+   ========================================================================== */
+.footer { padding: 50px var(--global-padding-inline) 20px; background-color: var(--color-background); color: var(--color-text-muted); font-size: 0.8rem; }
+.footer__inner { max-width: 1000px; margin: 0 auto; }
+.footer__contact { margin-bottom: 20px; }
+.footer__links { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 30px; }
+
+/* ==========================================================================
+   7. RESPONSIVE BREAKPOINTS (responsive.css)
+   ========================================================================== */
+@media (max-width: 1440px) { .movie-card { flex: 0 0 calc((100% - (4 * 8px)) / 5); } }
+@media (max-width: 992px)  { .movie-card { flex: 0 0 calc((100% - (3 * 8px)) / 4); } .hero__content { max-width: 65%; } .footer__links { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px)  { .movie-card { flex: 0 0 calc((100% - (2 * 8px)) / 3); } .navbar__links { display: none; } .footer__links { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 576px)  { .movie-card { flex: 0 0 calc((100% - (1 * 8px)) / 2); } }
+@media (max-width: 420px)  { .movie-card { flex: 0 0 75%; } .carousel-row__btn { display: none; } .footer__links { grid-template-columns: 1fr; } }
