@@ -1,18 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Netflix Frontend</title>
-  <link rel="stylesheet" href="css/reset.css" />
-  <link rel="stylesheet" href="css/variables.css" />
-  <link rel="stylesheet" href="css/style.css" />
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Clone - Production Architecture</title>
+    <link rel="stylesheet" href="css/style.css">
+    </head>
 <body>
-  <header>Netflix Frontend Placeholder</header>
-  <main>
-    <p>This repository contains the requested folder structure for the Netflix frontend sample.</p>
-  </main>
-  <script src="js/app.js"></script>
+
+    <header class="header" id="main-header">
+        <nav class="navbar" aria-label="Main Navigation">
+            <div class="navbar__left">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix Logo" class="navbar__logo">
+                <ul class="navbar__links">
+                    <li class="navbar__link-item"><a href="#" class="navbar__link navbar__link--active">Home</a></li>
+                    <li class="navbar__link-item"><a href="#" class="navbar__link">TV Shows</a></li>
+                    <li class="navbar__link-item"><a href="#" class="navbar__link">Movies</a></li>
+                    <li class="navbar__link-item"><a href="#" class="navbar__link">New & Popular</a></li>
+                    <li class="navbar__link-item"><a href="#" class="navbar__link">My List</a></li>
+                </ul>
+            </div>
+            <div class="navbar__right">
+                <button class="navbar__icon-btn" aria-label="Search">
+                    <svg class="navbar__icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                </button>
+                <span class="navbar__user-text">Children</span>
+                <button class="navbar__icon-btn" aria-label="Notifications">
+                    <svg class="navbar__icon" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+                </button>
+                <div class="navbar__profile">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" alt="User Profile" class="navbar__avatar">
+                    <span class="navbar__caret"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        
+        <section class="hero" aria-label="Featured Content">
+            <div class="hero__overlay hero__overlay--gradient"></div>
+            <div class="hero__content">
+                <h1 class="hero__title">Stranger Things</h1>
+                <p class="hero__description">
+                    When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces and one strange little girl.
+                </p>
+                <div class="hero__actions">
+                    <button class="hero__btn hero__btn--play">
+                        <svg class="hero__btn-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        Play
+                    </button>
+                    <button class="hero__btn hero__btn--info">
+                        <svg class="hero__btn-icon" viewBox="0 0 24 24"><path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v-2h-2v2z"/></svg>
+                        More Info
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <div id="dynamic-rows-container"></div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer__inner">
+            <p class="footer__contact">Questions? Call <a href="tel:000-800-919-1694">000-800-919-1694</a></p>
+            <ul class="footer__links">
+                <li class="footer__link-item"><a href="#" class="footer__link">FAQ</a></li>
+                <li class="footer__link-item"><a href="#" class="footer__link">Help Centre</a></li>
+                <li class="footer__link-item"><a href="#" class="footer__link">Account</a></li>
+                <li class="footer__link-item"><a href="#" class="footer__link">Media Centre</a></li>
+                <li class="footer__link-item"><a href="#" class="footer__link">Investor Relations</a></li>
+                <li class="footer__link-item"><a href="#" class="footer__link">Jobs</a></li>
+                <li class="footer__link-item"><a href="#" class="footer__link">Ways to Watch</a></li>
+                <li class="footer__link-item"><a href="#" class="footer__link">Terms of Use</a></li>
+                <li class="footer__link-item"><a href="#" class="footer__link">Privacy</a></li>
+                <li class="footer__link-item"><a href="#" class="footer__link">Cookie Preferences</a></li>
+                <li class="footer__link-item"><a href="#" class="footer__link">Corporate Information</a></li>
+                <li class="footer__link-item"><a href="#" class="footer__link">Contact Us</a></li>
+            </ul>
+            <p class="footer__copyright">© 2026 Netflix Clone Architecture. Built with Vanilla Web Tech.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>

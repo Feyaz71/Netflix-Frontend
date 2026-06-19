@@ -1,4 +1,96 @@
-/* Hero styles placeholder */
 .hero {
-  min-height: 60vh;
+    position: relative;
+    width: 100%;
+    height: 85vh;
+    min-height: 400px;
+    background-image: url('https://images.thequint.com/thequint%2F2019-07%2F7159d282-3837-4d9c-a1d2-7fb2fa9ec468%2Fstranger_things_3.jpg?w=1200&h=675');
+    background-size: cover;
+    background-position: center top;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--global-padding-inline);
+}
+
+.hero__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.hero__overlay--gradient {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 60%, var(--color-background) 100%),
+                linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 60%);
+}
+
+.hero__content {
+    position: relative;
+    z-index: 2;
+    max-width: 35%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.hero__title {
+    font-size: clamp(2rem, 5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.hero__description {
+    font-size: clamp(0.9rem, 1.2vw, 1.2rem);
+    line-height: 1.4;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.hero__actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.hero__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.8rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 4px;
+    transition: background-color var(--transition-fast);
+}
+
+.hero__btn-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.hero__btn--play {
+    background-color: var(--color-btn-light);
+    color: #000000;
+}
+
+.hero__btn--play .hero__btn-icon {
+    fill: #000000;
+}
+
+.hero__btn--play:hover {
+    background-color: var(--color-btn-light-hover);
+}
+
+.hero__btn--info {
+    background-color: var(--color-btn-dark);
+    color: var(--color-text-main);
+}
+
+.hero__btn--info .hero__btn-icon {
+    fill: var(--color-text-main);
+}
+
+.hero__btn--info:hover {
+    background-color: var(--color-btn-dark-hover);
 }

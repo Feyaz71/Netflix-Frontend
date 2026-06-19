@@ -1,4 +1,156 @@
-/* Carousel styles placeholder */
-.carousel {
-  overflow: hidden;
+.carousel-row {
+    position: relative;
+    margin: 3vw 0;
+    padding: 0 var(--global-padding-inline);
+    overflow: visible; /* Crucial to allow scaled cards to pop out */
 }
+
+.carousel-row__title {
+    font-size: clamp(1rem, 1.4vw, 1.4rem);
+    font-weight: 700;
+    color: var(--color-text-main);
+    margin-bottom: 0.5em;
+    display: inline-block;
+}
+
+.carousel-row__wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+}
+
+.carousel-row__track {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    padding: 20px 0; /* Extra breathing room vertically for scaled assets */
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.carousel-row__track::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.carousel-row__track--dragging {
+    scroll-behavior: auto !important;
+    cursor: grabbing;
+}
+
+/* Base Movie Card Shell Matrix */
+.movie-card {
+    position: relative;
+    flex: 0 0 calc((100% - (5 * 8px)) / 6); /* Default production Desktop size: 6 cards */
+    aspect-ratio: 16 / 9;
+    background-color: #181818;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    transform-origin: center center;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), z-index 0s linear var(--transition-fast);
+    z-index: var(--z-index-base);
+}
+
+.movie-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+/* Metadata reveal block */
+.movie-card__metadata {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to top, rgba(20, 20, 20, 1) 0%, rgba(20, 20, 20, 0.7) 70%, rgba(20, 20, 20, 0) 100%);
+    opacity: 0;
+    transform: translateY(5px);
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.movie-card__title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.movie-card__info-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.movie-card__badge {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 1px 4px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    border-radius: 2px;
+}
+
+.movie-card__year {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+}
+
+/* --- Netflix Cinematic Hover Physics Engine --- */
+.carousel-row__track:not(.carousel-row__track--dragging) .movie-card:hover {
+    transform: scale(1.15);
+    z-index: var(--z-index-carousel-card);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.6);
+    transition-delay: 0.2s; /* Brief hold before expanding to match production behavior */
+}
+
+.carousel-row__track:not(.carousel-row__track--dragging) .movie-card:hover .movie-card__metadata {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s;
+}
+
+/* Dynamic boundary detection compensation */
+.movie-card:first-child { transform-origin: left center; }
+.movie-card:last-child { transform-origin: right center; }
+
+/* Control Arrows Structures */
+.carousel-row__btn {
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    width: 4%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: var(--z-index-carousel-controls);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-main);
+    opacity: 0;
+    transition: opacity var(--transition-fast), background-color var(--transition-fast);
+}
+
+.carousel-row__wrapper:hover .carousel-row__btn {
+    opacity: 1;
+}
+
+.carousel-row__btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-row__btn svg {
+    width: 2.5vw;
+    fill: currentColor;
+}
+
+.carousel-row__btn--left { left: calc(var(--global-padding-inline) * -1); border-radius: 0 4px 4px 0; }
+.carousel-row__btn--right { right: calc(var(--global-padding-inline) * -1); border-radius: 4px 0 0 4px; }

@@ -1,3 +1,74 @@
-/* Responsive styles placeholder */
+/**
+ * Global Multi-Breakpoint Responsive Matrix Layout
+ */
+
+/* Laptop screens (Up to 1440px) -> Render 5 Cards */
+@media (max-width: 1440px) {
+    .movie-card {
+        flex: 0 0 calc((100% - (4 * 8px)) / 5);
+    }
+}
+
+/* Tablets / Medium Viewports (Up to 992px) -> Render 4 Cards */
+@media (max-width: 992px) {
+    .movie-card {
+        flex: 0 0 calc((100% - (3 * 8px)) / 4);
+    }
+    .hero__content {
+        max-width: 55%;
+    }
+    .footer__links {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Small Tablets / Handsets (Up to 768px) -> Render 3 Cards */
 @media (max-width: 768px) {
+    .movie-card {
+        flex: 0 0 calc((100% - (2 * 8px)) / 3);
+    }
+    .navbar__links {
+        display: none; /* Hide top-level links for a future drawer setup */
+    }
+    .hero {
+        height: 70vh;
+    }
+    .hero__content {
+        max-width: 75%;
+    }
+    .footer__links {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile Devices (Up to 576px) -> Render 2 Cards */
+@media (max-width: 576px) {
+    .movie-card {
+        flex: 0 0 calc((100% - (1 * 8px)) / 2);
+    }
+    .hero {
+        height: 60vh;
+    }
+    .hero__actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .hero__btn {
+        width: 100%;
+        padding: 0.5rem 1rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* Small Mobile Viewports (Up to 420px) -> Render 1.4 Cards */
+@media (max-width: 420px) {
+    .movie-card {
+        flex: 0 0 70%; /* Renders exactly 1 full card and a 40% peek of the next */
+    }
+    .carousel-row__btn {
+        display: none; /* Rely entirely on touch swiping for native mobile feel */
+    }
+    .footer__links {
+        grid-template-columns: 1fr;
+    }
 }
